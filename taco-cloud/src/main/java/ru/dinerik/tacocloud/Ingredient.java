@@ -5,6 +5,7 @@ import lombok.Data;
 // Класс предоставляющий ингредиенты тако
 @Data        // Для генерации основных методов гет и сет, конструкторы и т.д.
 public class Ingredient {
+
     private final String id;
     private final String name;
     private final Type type;
@@ -12,4 +13,5 @@ public class Ingredient {
     public enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
+
 }

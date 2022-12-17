@@ -9,6 +9,7 @@
 <h1>Design your taco!</h1>
 <!-- Страница составления рецепта тако! -->
 <img th:src="@{/images/TacoCloud.png}"/>
+<!--При отправке поля формы присваиваем свойства объекту taco-->
 <form method="POST" th:object="${taco}">
 <!--
     <span class="validationError"
