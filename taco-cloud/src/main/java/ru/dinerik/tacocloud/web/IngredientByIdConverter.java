@@ -1,17 +1,22 @@
 package ru.dinerik.tacocloud.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import ru.dinerik.tacocloud.Ingredient;
-import ru.dinerik.tacocloud.Ingredient.Type;
-
-import java.util.HashMap;
-import java.util.Map;
+import ru.dinerik.tacocloud.data.IngredientRepository;
 
 // Конвертер для преобразования строк в объекты Ingredient
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
+    private IngredientRepository ingredientRepo;
+
+    @Autowired
+    public IngredientByIdConverter(IngredientRepository ingredientRepo) {
+        this.ingredientRepo = ingredientRepo;
+    }
+/*
     private Map<String, Ingredient> ingredientMap = new HashMap<>();
 
     public IngredientByIdConverter() {
@@ -40,6 +45,12 @@ public class IngredientByIdConverter implements Converter<String, Ingredient> {
     @Override
     public Ingredient convert(String source) {
         return ingredientMap.get(source);
+    }
+    */
+
+    @Override
+    public Ingredient convert(String id) {
+        return ingredientRepo.findById(id).orElse(null);
     }
 
 }

@@ -7,11 +7,18 @@ import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // Класс, представляющий заказ
 @Data
 public class TacoOrder {
+
+    private final static long serialVersionUID = 1L;
+
+    private Long id;
+
+    private Date placedAt;
 
     // Информация для доставки
     @NotBlank(message="Delivery name is required")
