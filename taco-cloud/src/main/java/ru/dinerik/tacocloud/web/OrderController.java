@@ -19,7 +19,7 @@ import ru.dinerik.tacocloud.data.OrderRepository;
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
-    private OrderRepository orderRepo;
+    private final OrderRepository orderRepo;
 
     @Autowired
     public OrderController(OrderRepository orderRepo) {
