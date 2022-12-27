@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +14,12 @@ import java.util.List;
 
 // Класс, представляющий заказ
 @Data
+@Table      // для хранения объектов класса создается таблица
 public class TacoOrder {
 
     private final static long serialVersionUID = 1L;
 
+    @Id
     private Long id;
 
     private Date placedAt;

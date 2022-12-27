@@ -1,14 +1,14 @@
 package ru.dinerik.tacocloud.data;
 
+import org.springframework.data.repository.CrudRepository;
 import ru.dinerik.tacocloud.Ingredient;
 
-import java.util.Optional;
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
 
-public interface IngredientRepository {
-
-    Iterable<Ingredient> findAll();
+    // Эти методы уже есть в CrudRepository
+/*    Iterable<Ingredient> findAll();
 
     Optional<Ingredient> findById(String id);
 
-    Ingredient save(Ingredient ingredient);
+    Ingredient save(Ingredient ingredient);*/
 }
