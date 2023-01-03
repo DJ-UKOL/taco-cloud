@@ -1,27 +1,32 @@
 package ru.dinerik.tacocloud;
 
-import jakarta.persistence.*;
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 // Класс, представляющий заказ
 @Data
-@Entity
+@Table("orders")            // Хранить в таблице "orders"
 public class TacoOrder implements Serializable {
 
+    @Serial
     private final static long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @PrimaryKey                 // Определение первичного ключа
+    private UUID id = Uuids.timeBased();
 
     private Date placedAt = new Date();
 
@@ -47,10 +52,10 @@ public class TacoOrder implements Serializable {
     private String ccCVV;
 
     // Список объектов Тако составляющих заказ
-    @OneToMany(cascade = CascadeType.ALL)       // при удалении заказа все связанные с ним тако тоже будут удалены
-    private List<Taco> tacos = new ArrayList<>();
+    @Column("tacos")
+    private List<TacoUDT> tacos = new ArrayList<>();
 
-    public void addTaco(Taco taco) {
+    public void addTaco(TacoUDT taco) {
         this.tacos.add(taco);
     }
 }
