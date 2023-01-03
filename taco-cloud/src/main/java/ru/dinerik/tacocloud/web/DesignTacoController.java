@@ -10,6 +10,7 @@ import ru.dinerik.tacocloud.Ingredient;
 import ru.dinerik.tacocloud.Ingredient.Type;
 import ru.dinerik.tacocloud.Taco;
 import ru.dinerik.tacocloud.TacoOrder;
+import ru.dinerik.tacocloud.TacoUDT;
 import ru.dinerik.tacocloud.data.IngredientRepository;
 
 import java.util.stream.Collectors;
@@ -67,7 +68,7 @@ public class DesignTacoController {
         if(errors.hasErrors()) {
             return "design";
         }
-        tacoOrder.addTaco(taco);    // Добавляем полученный объект из формы в объект TacoOrder
+        tacoOrder.addTaco(new TacoUDT(taco.getName(), taco.getIngredients()));    // Добавляем полученный объект из формы в объект TacoOrder
 
         return "redirect:/orders/current";
     }
