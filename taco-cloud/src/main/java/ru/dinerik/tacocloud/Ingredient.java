@@ -1,17 +1,14 @@
 package ru.dinerik.tacocloud;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 // Класс предоставляющий ингредиенты тако
 @Data        // Для генерации основных методов гет и сет, конструкторы и т.д.
-@Document(collection="ingredients")
+@Entity      // для JPA
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("ingredients")
 public class Ingredient {
 
     @Id

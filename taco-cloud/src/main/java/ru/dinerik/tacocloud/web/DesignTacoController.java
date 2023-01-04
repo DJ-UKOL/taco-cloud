@@ -10,7 +10,6 @@ import ru.dinerik.tacocloud.Ingredient;
 import ru.dinerik.tacocloud.Ingredient.Type;
 import ru.dinerik.tacocloud.Taco;
 import ru.dinerik.tacocloud.TacoOrder;
-import ru.dinerik.tacocloud.TacoUDT;
 import ru.dinerik.tacocloud.data.IngredientRepository;
 
 import java.util.stream.Collectors;

@@ -7,24 +7,42 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.dinerik.tacocloud.data.IngredientRepository;
+import ru.dinerik.tacocloud.data.OrderRepository;
 
 // Проверка для домашней страницы
-@WebMvcTest(HomeController.class)           // Тест для MVC
+@ExtendWith(SpringExtension.class)
+@WebMvcTest
 public class HomeControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;        // Внедряем MockMvc для тестирования без запуска сервера
+    private MockMvc mockMvc;
+
+    // Note: Most of these mocks are here to avoid autowiring issues. They aren't
+    //       actually used in the course of the home page test, so their behavior
+    //       isn't important. They just need to exist so autowiring can take place.
+
+    @MockBean
+    private IngredientRepository ingredientRepository;
+
+    @MockBean
+    private OrderRepository orderRepository;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk())     // Статус должен быть HTTP 200 (OK)
-                .andExpect(view().name("home"))    // Имя у представления должно быть home
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
                 .andExpect(content().string(
-                        containsString("Welcome to...")     // содержание текста
-                ));
+                        containsString("Welcome to...")));
     }
+
 }
