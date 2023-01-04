@@ -68,7 +68,7 @@ public class DesignTacoController {
         if(errors.hasErrors()) {
             return "design";
         }
-        tacoOrder.addTaco(new TacoUDT(taco.getName(), taco.getIngredients()));    // Добавляем полученный объект из формы в объект TacoOrder
+        tacoOrder.addTaco(taco);    // Добавляем полученный объект из формы в объект TacoOrder
 
         return "redirect:/orders/current";
     }

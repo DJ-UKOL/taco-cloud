@@ -6,9 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,14 +21,13 @@ import java.util.UUID;
 
 // Класс, представляющий заказ
 @Data
-@Table("orders")            // Хранить в таблице "orders"
+@Document
 public class TacoOrder implements Serializable {
 
-    @Serial
     private final static long serialVersionUID = 1L;
 
-    @PrimaryKey                 // Определение первичного ключа
-    private UUID id = Uuids.timeBased();
+    @Id
+    private String id;
 
     private Date placedAt = new Date();
 
@@ -52,10 +53,9 @@ public class TacoOrder implements Serializable {
     private String ccCVV;
 
     // Список объектов Тако составляющих заказ
-    @Column("tacos")
-    private List<TacoUDT> tacos = new ArrayList<>();
+    private List<Taco> tacos = new ArrayList<>();
 
-    public void addTaco(TacoUDT taco) {
+    public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
 }
