@@ -6,9 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import ru.dinerik.tacocloud.data.IngredientRepository;
-
 import ru.dinerik.tacocloud.Ingredient.Type;
+import ru.dinerik.tacocloud.data.IngredientRepository;
 
 // Основной класс который запускает проект
 @SpringBootApplication			// (@SpringBootConfiguration, @EnableAutoConfiguration, @ComponentScan)
