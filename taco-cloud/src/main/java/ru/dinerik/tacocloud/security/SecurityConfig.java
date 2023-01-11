@@ -2,7 +2,7 @@ package ru.dinerik.tacocloud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +35,8 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests()
                     .requestMatchers("/design", "/orders").hasRole("USER")      // Разрешает доступ, если пользователь обладает указанной ролью
+                    .requestMatchers(HttpMethod.POST, "/ingredients").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/ingredients/**").hasRole("ADMIN")
                     .requestMatchers("/", "/**").permitAll()        // Разрешает доступ всем без всяких условий
 
                 .and()
