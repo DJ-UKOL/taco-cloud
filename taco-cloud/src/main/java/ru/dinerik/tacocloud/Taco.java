@@ -3,6 +3,7 @@ package ru.dinerik.tacocloud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 // Класс, предоставляющий рецепт
 @Data
 @Entity
+@RestResource(rel="tacos", path="tacos")            // меняем end-point tacoes на tacos
 public class Taco {
 
     @Id

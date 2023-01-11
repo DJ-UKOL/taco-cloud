@@ -1,8 +1,9 @@
 package ru.dinerik.tacocloud.data;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.dinerik.tacocloud.Taco;
 
 public interface TacoRepository
-        extends CrudRepository<Taco, Long> {
+        extends JpaRepository<Taco, Long> {
+
 }

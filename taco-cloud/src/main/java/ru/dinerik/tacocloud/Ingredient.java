@@ -2,7 +2,10 @@ package ru.dinerik.tacocloud;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 // Класс предоставляющий ингредиенты тако
 @Data        // Для генерации основных методов гет и сет, конструкторы и т.д.
