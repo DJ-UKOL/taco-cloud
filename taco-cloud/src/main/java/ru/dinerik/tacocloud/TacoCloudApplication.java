@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TacoCloudApplication {
 
 	public static void main(String[] args) {
-		System.out.println(1 + '0');
 		SpringApplication.run(TacoCloudApplication.class, args);
 	}
 }
