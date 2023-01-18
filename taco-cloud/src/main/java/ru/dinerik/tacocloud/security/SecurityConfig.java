@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +15,8 @@ import ru.dinerik.tacocloud.User;
 import ru.dinerik.tacocloud.data.UserRepository;
 
 // Базовый класс конфигурации для Spring Security
-@Configuration
+@Configuration(proxyBeanMethods = false)
+@EnableWebSecurity
 public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -26,28 +29,20 @@ public class SecurityConfig {
         return username -> {
             User user = userRepo.findByUsername(username);
             if (user != null) return user;
-            throw new UsernameNotFoundException("User ‘" + username + "’ not found");
+            throw new UsernameNotFoundException("User " + username + " not found");
         };
     }
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
+                //.csrf().disable()
                 .authorizeHttpRequests()
                     .requestMatchers("/design", "/orders").hasRole("USER")      // Разрешает доступ, если пользователь обладает указанной ролью
-                    .requestMatchers(HttpMethod.POST, "/ingredients").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/ingredients/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/ingredients").hasAuthority("SCOPE_writeIngredients")
+                   .requestMatchers(HttpMethod.DELETE, "/api/ingredients").hasAuthority("SCOPE_deleteIngredients")
                     .requestMatchers("/", "/**").permitAll()        // Разрешает доступ всем без всяких условий
-
                 .and()
-                    .formLogin()            // настройка формы входа
-                        .loginPage("/login")    // заменить встроенную страницу входа
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt).build();
 
-                .and()
-                    .logout()
-                        .logoutSuccessUrl("/")
-
-                .and()
-                    .build();
     }
 }

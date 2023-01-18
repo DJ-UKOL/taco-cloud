@@ -1,4 +1,4 @@
-package ru.dinerik.tacocloud.web;
+package ru.dinerik.tacocloud.web.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class IngredientController {
         return repo.findAll();
     }
 
-    @PostMapping
+    @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Ingredient saveIngredient(@RequestBody Ingredient ingredient) {
         return repo.save(ingredient);

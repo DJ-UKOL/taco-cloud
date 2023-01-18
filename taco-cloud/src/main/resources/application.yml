@@ -1,7 +1,7 @@
-security:
-  user:
-    name: buzz
-    password: infinity
+#security:
+#  user:
+#    name: buzz
+#    password: infinity
 
 taco:
   orders:
@@ -22,7 +22,12 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+# end::provider_config[]
 #---
 #spring:
 #  profiles: prod
