@@ -27,6 +27,9 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:9000/oauth2/jwks
+  artemis:
+    user: tacoweb
+    password: l3tm31n
 # end::provider_config[]
 #---
 #spring:
